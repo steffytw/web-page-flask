@@ -4,12 +4,18 @@ from flask import Flask ,render_template, redirect, url_for, session, request, l
 #import json
 
 app = Flask(__name__) #app initialisation
-
+@app.route('/logout', methods=['GET','POST'])
+def logout():
+	return render_template("index.html")
 @app.route('/', methods=['GET','POST']) #landing page intent
 def home():
+	username="admin@admin.com"
+	password="admin"
 	if request.method=='POST':
 		email =request.form['email']
-		password=request.form['password']
+		password_candidate=request.form['password']
+		if username==email and password==password_candidate:
+			return render_template("home.html")
 		print(email,password)
 	return render_template("index.html") #display the html template
 
